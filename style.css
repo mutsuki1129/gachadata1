@@ -13,6 +13,7 @@
     --table-bg-even: #f2f2f2;
     --table-header-bg: #e2eaf4;
     --table-border: #ddd;
+    --table-hover-bg: #ddd; /* 日間懸停色 */
     --footer-color: #777;
     --feedback-border: #ccc;
     --sort-icon-color: #333;
@@ -32,6 +33,7 @@ body.dark-mode {
     --table-bg-even: #2e2e2e;
     --table-header-bg: #3a3a3a;
     --table-border: #333;
+    --table-hover-bg: #444; /* 夜間懸停色 */
     --footer-color: #999;
     --feedback-border: #444;
     --sort-icon-color: #e0e0e0;
@@ -45,7 +47,7 @@ body {
     color: var(--text-color);
     margin: 0;
     padding: 0;
-    transition: background-color 0.3s, color 0.3s; /* 讓切換更平滑 */
+    transition: background-color 0.3s, color 0.3s; 
 }
 
 .container {
@@ -78,7 +80,7 @@ h1, h3 {
     transition: color 0.3s;
 }
 
-/* --- 日間/夜間按鈕樣式 --- */
+/* --- 日間/夜間按鈕樣式 (維持不變) --- */
 .theme-button {
     position: absolute;
     top: 50%;
@@ -97,7 +99,7 @@ h1, h3 {
     background-color: rgba(255, 255, 255, 0.3);
 }
 
-/* --- 篩選區 --- */
+/* --- 篩選區 (維持不變) --- */
 .search-section {
     margin-bottom: 20px;
 }
@@ -120,7 +122,7 @@ h1, h3 {
     transition: background-color 0.3s, border-color 0.3s;
 }
 
-/* 兩個按鈕的排版 */
+/* 兩個按鈕的排版 (維持不變) */
 .filter-buttons {
     margin-top: 15px;
     display: flex; 
@@ -128,7 +130,7 @@ h1, h3 {
 }
 .filter-buttons button {
     flex-grow: 1; 
-    background-color: var(--header-bg); /* 固定使用藍色 */
+    background-color: var(--header-bg); 
     color: white;
     padding: 8px 15px;
     border: none;
@@ -136,9 +138,8 @@ h1, h3 {
     cursor: pointer;
 }
 .filter-buttons button:hover {
-    background-color: #1e4566; /* 固定的深藍色 */
+    background-color: #1e4566; 
 }
-/* 結束兩個按鈕的排版 */
 
 .checkbox-group {
     display: flex;
@@ -179,9 +180,11 @@ h1, h3 {
 #gachaTable tr:nth-child(even) {
     background-color: var(--table-bg-even);
 }
+/* 修正點：使用變數控制懸停顏色 */
 #gachaTable tr:hover {
-    background-color: #ddd; /* Hover 顏色可以固定，或使用混合色 */
+    background-color: var(--table-hover-bg); 
 }
+/* 結束修正點 */
 
 /* 排序圖示 */
 .sort-icon {
@@ -191,6 +194,7 @@ h1, h3 {
     margin-left: 5px;
     vertical-align: middle;
 }
+/* 修正點：圖示顏色使用變數 */
 .asc .sort-icon {
     border-left: 5px solid transparent;
     border-right: 5px solid transparent;
@@ -201,6 +205,7 @@ h1, h3 {
     border-right: 5px solid transparent;
     border-top: 5px solid var(--sort-icon-color);
 }
+/* 結束修正點 */
 
 /* 意見回饋區 */
 .feedback-section {
@@ -212,6 +217,23 @@ h1, h3 {
 }
 .feedback-button {
     display: inline-block;
-    background-color: #f4a261; /* 固定橘色 */
+    background-color: #f4a261; 
     color: white;
-    padding: 10px
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    margin-top: 10px;
+}
+.feedback-button:hover {
+    background-color: #e76f51;
+}
+
+/* 頁腳 */
+footer {
+    text-align: center;
+    padding: 10px;
+    color: var(--footer-color);
+    font-size: 0.9em;
+    transition: color 0.3s;
+}
