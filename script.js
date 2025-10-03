@@ -6,12 +6,20 @@ let isAscending = true;
 
 // --- CSV 載入與初始化 ---
 
-// 載入 CSV 檔案
+// 載入 CSV 檔案 (使用 TextDecoder 強制 UTF-8 解碼來解決亂碼問題)
 function loadCSV() {
-    // 檔案是 Tab-delimited (TSV)，因此使用 fetch 讀取，並用 '\t' 分隔
+    // 檔案是 Tab-delimited (TSV)。
     fetch('gachadata.csv')
-        .then(response => response.text())
-        .then(csvText => {
+        .then(response => {
+            // 讀取為二進制緩衝區
+            return response.arrayBuffer(); 
+        })
+        .then(buffer => {
+            // 使用 TextDecoder 強制解碼為 UTF-8
+            const decoder = new TextDecoder('utf-8');
+            const csvText = decoder.decode(buffer);
+            
+            // 以下解析邏輯保持不變
             const lines = csvText.trim().split('\n');
             if (lines.length === 0) return;
 
@@ -29,7 +37,9 @@ function loadCSV() {
             for (let i = 1; i < lines.length; i++) {
                 // 使用 Tab 分隔符號
                 const values = lines[i].split('\t');
-                if (values.length === headers.length) {
+                
+                // 處理可能因換行符號不同導致的資料長度不符問題
+                if (values.length >= headers.length) {
                     const row = {
                         name: values[0].trim(),
                         gachapon: values[1].trim(),
