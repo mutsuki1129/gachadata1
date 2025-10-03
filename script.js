@@ -8,18 +8,17 @@ let isAscending = true;
 
 // 載入 CSV 檔案
 function loadCSV() {
-    // gachadata.csv 是 Tab-delimited
+    // 檔案是 Tab-delimited (TSV)，因此使用 fetch 讀取，並用 '\t' 分隔
     fetch('gachadata.csv')
         .then(response => response.text())
         .then(csvText => {
-            // 由於檔案是 Tab-delimited，我們手動解析
             const lines = csvText.trim().split('\n');
             if (lines.length === 0) return;
 
-            // 假設第一行是標題，並使用 Tab 分隔
+            // 使用 Tab 分隔符號
             const headers = lines[0].split('\t').map(h => h.trim());
             
-            // 確保標頭是 'Name', 'gachapon', 'Percent'
+            // 檢查標頭
             if (headers[0] !== 'Name' || headers[1] !== 'gachapon' || headers[2] !== 'Percent') {
                 console.error("CSV 標頭不符預期: Name, gachapon, Percent");
                 document.getElementById('resultCount').innerText = "資料載入失敗：CSV格式錯誤。";
@@ -28,6 +27,7 @@ function loadCSV() {
 
             // 解析資料行
             for (let i = 1; i < lines.length; i++) {
+                // 使用 Tab 分隔符號
                 const values = lines[i].split('\t');
                 if (values.length === headers.length) {
                     const row = {
