@@ -18,14 +18,22 @@ body {
 
 header {
     background-color: #306090; /* 藍色系 */
-    color: white;
+    color: white; /* 讓 header 內部的預設文字為白色 */
     padding: 15px 0;
     text-align: center;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
+/* === 關鍵修正：確保 h1 標題在 header 內顯示為白色 === */
+header h1 {
+    color: white; 
+    margin: 0; /* 移除標題預設的 margin，讓它更置中 */
+}
+/* ==================================================== */
+
 h1, h3 {
-    color: #306090;
+    /* 這裡的設定只影響 header 以外的 h1 和 h3 */
+    color: #306090; 
 }
 
 /* 搜尋區 */
