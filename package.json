@@ -1,23 +1,13 @@
 {
-  "name": "chronostory-drop-tracker",
+  "name": "gachapon-checker",
   "version": "1.0.0",
-  "description": "Monster drop tracker with cache busting.",
+  "description": "MapleStory Gachapon Drop Checker",
   "source": "index.html",
   "scripts": {
     "start": "parcel",
-    "build": "parcel build --public-url ./"
-  },
-  "keywords": [
-    "maplestory",
-    "github-pages"
-  ],
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "parcel": "^2.12.0"
+    "build": "parcel build"
   },
   "devDependencies": {
-    "@parcel/transformer-css": "^2.12.0",
-    "@parcel/transformer-js": "^2.12.0"
+    "parcel": "^2.12.0"
   }
 }
