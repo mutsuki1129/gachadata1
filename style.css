@@ -18,22 +18,19 @@ body {
 
 header {
     background-color: #306090; /* 藍色系 */
-    color: white; /* 讓 header 內部的預設文字為白色 */
+    color: white; 
     padding: 15px 0;
     text-align: center;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-/* === 關鍵修正：確保 h1 標題在 header 內顯示為白色 === */
 header h1 {
-    color: white; 
-    margin: 0; /* 移除標題預設的 margin，讓它更置中 */
+    color: white; /* 修正標題在藍色背景上不可見的問題 */
+    margin: 0; 
 }
-/* ==================================================== */
 
 h1, h3 {
-    /* 這裡的設定只影響 header 以外的 h1 和 h3 */
-    color: #306090; 
+    color: #306090;
 }
 
 /* 搜尋區 */
@@ -56,6 +53,27 @@ h1, h3 {
     margin-bottom: 20px;
     background-color: #f9f9f9;
 }
+
+/* 兩個按鈕的排版 */
+.filter-buttons {
+    margin-top: 15px;
+    display: flex; /* 讓按鈕並排 */
+    gap: 10px;    /* 按鈕間距 */
+}
+.filter-buttons button {
+    flex-grow: 1; /* 讓按鈕平均分配空間 */
+    background-color: #306090; /* 統一使用藍色 */
+    color: white;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.filter-buttons button:hover {
+    background-color: #1e4566; /* hover 顏色略深 */
+}
+/* 結束兩個按鈕的排版 */
+
 .checkbox-group {
     display: flex;
     flex-wrap: wrap;
@@ -66,18 +84,7 @@ h1, h3 {
     font-weight: normal;
     cursor: pointer;
 }
-.filter-section button {
-    background-color: #4CAF50;
-    color: white;
-    padding: 8px 15px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    margin-top: 10px;
-}
-.filter-section button:hover {
-    background-color: #45a049;
-}
+
 
 /* 表格區 */
 .table-container {
