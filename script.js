@@ -3,6 +3,7 @@ let allData = []; // 儲存所有資料
 let uniqueLocations = new Set(); // 儲存所有唯一的轉蛋機地點
 let currentSortColumn = 'name';
 let isAscending = true;
+let isAllSelected = true; // 新增狀態來追蹤全選/不選的狀態
 
 // --- CSV 載入與初始化 ---
 
@@ -54,7 +55,7 @@ function loadCSV() {
 
             // 初始化介面
             setupCheckboxes();
-            sortAndDisplayData();
+            runAllFiltersAndSort(); // 首次載入時運行篩選
         })
         .catch(error => {
             console.error('載入 CSV 檔案時發生錯誤:', error);
@@ -66,13 +67,12 @@ function loadCSV() {
 
 function setupCheckboxes() {
     const container = document.getElementById('locationCheckboxes');
-    container.innerHTML = ''; // 清空舊內容
+    container.innerHTML = ''; 
     
-    // 將 Set 轉換為 Array 並排序，以便顯示
     const sortedLocations = Array.from(uniqueLocations).sort();
 
     sortedLocations.forEach(location => {
-        const id = `loc-${location.replace(/[^a-zA-Z0-9]/g, '-')}`; // 創建安全的 ID
+        const id = `loc-${location.replace(/[^a-zA-Z0-9]/g, '-')}`; 
         
         const checkbox = document.createElement('input');
         checkbox.type = 'checkbox';
@@ -80,6 +80,8 @@ function setupCheckboxes() {
         checkbox.name = 'location';
         checkbox.value = location;
         checkbox.checked = true; // 預設全部勾選
+        // === 關鍵修正：點擊時即時篩選 ===
+        checkbox.addEventListener('change', runAllFiltersAndSort);
 
         const label = document.createElement('label');
         label.htmlFor = id;
@@ -95,9 +97,24 @@ function getSelectedLocations() {
     return Array.from(checkboxes).map(cb => cb.value);
 }
 
-// --- 搜尋與篩選主邏輯 ---
+// === 新增：全選 / 全部不選功能 ===
+function toggleAllCheckboxes() {
+    const checkboxes = document.querySelectorAll('#locationCheckboxes input[name="location"]');
+    
+    // 根據當前狀態切換，如果當前是全選，則下一次是全部不選
+    isAllSelected = !isAllSelected; 
 
-function applyFilters() {
+    checkboxes.forEach(cb => {
+        cb.checked = isAllSelected;
+    });
+
+    // 執行篩選
+    runAllFiltersAndSort();
+}
+
+// --- 搜尋與篩選主邏輯 (取代原 applyFilters) ---
+
+function runAllFiltersAndSort() {
     // 獲取使用者輸入和選擇
     const searchTerm = document.getElementById('searchInput').value.toLowerCase().trim();
     const selectedLocations = getSelectedLocations();
@@ -141,7 +158,7 @@ function sortAndDisplayData(data = allData) {
 
 function displayTable(data) {
     const tableBody = document.getElementById('tableBody');
-    tableBody.innerHTML = ''; // 清空舊結果
+    tableBody.innerHTML = ''; 
     
     // 更新結果計數
     document.getElementById('resultCount').innerText = `共找到 ${data.length} 筆結果。`;
@@ -176,8 +193,8 @@ function displayTable(data) {
 
 // --- 事件監聽器 ---
 
-// 搜尋欄位輸入時即時篩選
-document.getElementById('searchInput').addEventListener('keyup', applyFilters);
+// 搜尋欄位輸入時即時篩選 (改為呼叫新的核心函式)
+document.getElementById('searchInput').addEventListener('keyup', runAllFiltersAndSort);
 
 // 表格標頭點擊排序
 document.querySelectorAll('#gachaTable th').forEach(header => {
@@ -192,7 +209,7 @@ document.querySelectorAll('#gachaTable th').forEach(header => {
         }
 
         // 重新排序並顯示
-        applyFilters(); 
+        runAllFiltersAndSort(); 
     });
 });
 
