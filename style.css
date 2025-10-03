@@ -1,8 +1,48 @@
-/* --- 共通樣式 --- */
+/* --- 顏色變數定義 (日間模式/預設) --- */
+:root {
+    --bg-color: #f4f4f9;
+    --text-color: #333;
+    --header-bg: #306090;
+    --primary-color: #306090; /* H1, H3 color */
+    --container-bg: #fff;
+    --input-bg: #fff;
+    --input-border: #ccc;
+    --filter-bg: #f9f9f9;
+    --filter-border: #ddd;
+    --table-bg-odd: #fff;
+    --table-bg-even: #f2f2f2;
+    --table-header-bg: #e2eaf4;
+    --table-border: #ddd;
+    --footer-color: #777;
+    --feedback-border: #ccc;
+    --sort-icon-color: #333;
+}
+
+/* --- 夜間模式變數定義 --- */
+body.dark-mode {
+    --bg-color: #121212;
+    --text-color: #e0e0e0;
+    --primary-color: #7abaff;
+    --container-bg: #1e1e1e;
+    --input-bg: #333;
+    --input-border: #444;
+    --filter-bg: #252525;
+    --filter-border: #444;
+    --table-bg-odd: #1e1e1e;
+    --table-bg-even: #2e2e2e;
+    --table-header-bg: #3a3a3a;
+    --table-border: #333;
+    --footer-color: #999;
+    --feedback-border: #444;
+    --sort-icon-color: #e0e0e0;
+}
+
+
+/* --- 共通樣式 (使用變數) --- */
 body {
     font-family: Arial, sans-serif;
-    background-color: #f4f4f9; /* 日間：淺灰 */
-    color: #333;
+    background-color: var(--bg-color); 
+    color: var(--text-color);
     margin: 0;
     padding: 0;
     transition: background-color 0.3s, color 0.3s; /* 讓切換更平滑 */
@@ -12,20 +52,20 @@ body {
     width: 90%;
     max-width: 1200px;
     margin: 20px auto;
-    background: #fff; /* 日間：白色背景 */
+    background: var(--container-bg); 
     padding: 20px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
-    transition: background 0.3s;
+    transition: background 0.3s, box-shadow 0.3s;
 }
 
 header {
-    background-color: #306090; /* 藍色系 */
+    background-color: var(--header-bg); 
     color: white; 
-    padding: 15px 20px; /* 增加左右 padding */
+    padding: 15px 20px; 
     text-align: center;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    position: relative; /* 為了定位切換按鈕 */
+    position: relative; 
 }
 
 header h1 {
@@ -33,11 +73,16 @@ header h1 {
     margin: 0; 
 }
 
+h1, h3 {
+    color: var(--primary-color);
+    transition: color 0.3s;
+}
+
 /* --- 日間/夜間按鈕樣式 --- */
 .theme-button {
     position: absolute;
     top: 50%;
-    right: 20px; /* 右側邊距 */
+    right: 20px;
     transform: translateY(-50%);
     background-color: rgba(255, 255, 255, 0.2);
     color: white;
@@ -52,12 +97,7 @@ header h1 {
     background-color: rgba(255, 255, 255, 0.3);
 }
 
-h1, h3 {
-    color: #306090;
-    transition: color 0.3s;
-}
-
-/* --- 篩選區與按鈕樣式 (保持不變) --- */
+/* --- 篩選區 --- */
 .search-section {
     margin-bottom: 20px;
 }
@@ -65,16 +105,18 @@ h1, h3 {
     width: 100%;
     padding: 10px;
     font-size: 16px;
-    border: 1px solid #ccc;
+    border: 1px solid var(--input-border);
     border-radius: 4px;
+    background-color: var(--input-bg);
+    color: var(--text-color);
     transition: background-color 0.3s, border-color 0.3s, color 0.3s;
 }
 .filter-section {
     padding: 15px;
-    border: 1px solid #ddd;
+    border: 1px solid var(--filter-border);
     border-radius: 4px;
     margin-bottom: 20px;
-    background-color: #f9f9f9;
+    background-color: var(--filter-bg);
     transition: background-color 0.3s, border-color 0.3s;
 }
 
@@ -86,7 +128,7 @@ h1, h3 {
 }
 .filter-buttons button {
     flex-grow: 1; 
-    background-color: #306090; 
+    background-color: var(--header-bg); /* 固定使用藍色 */
     color: white;
     padding: 8px 15px;
     border: none;
@@ -94,7 +136,7 @@ h1, h3 {
     cursor: pointer;
 }
 .filter-buttons button:hover {
-    background-color: #1e4566; 
+    background-color: #1e4566; /* 固定的深藍色 */
 }
 /* 結束兩個按鈕的排版 */
 
@@ -110,7 +152,7 @@ h1, h3 {
 }
 
 
-/* --- 表格區樣式 (保持不變) --- */
+/* --- 表格區 --- */
 .table-container {
     overflow-x: auto;
 }
@@ -120,23 +162,28 @@ h1, h3 {
     margin-top: 10px;
 }
 #gachaTable th, #gachaTable td {
-    border: 1px solid #ddd;
+    border: 1px solid var(--table-border);
     padding: 12px 8px;
     text-align: left;
     transition: background-color 0.3s, color 0.3s, border-color 0.3s;
 }
 #gachaTable th {
-    background-color: #e2eaf4;
+    background-color: var(--table-header-bg);
     cursor: pointer;
     position: relative;
     transition: background-color 0.3s;
 }
+#gachaTable tr:nth-child(odd) {
+    background-color: var(--table-bg-odd);
+}
 #gachaTable tr:nth-child(even) {
-    background-color: #f2f2f2;
+    background-color: var(--table-bg-even);
 }
 #gachaTable tr:hover {
-    background-color: #ddd;
+    background-color: #ddd; /* Hover 顏色可以固定，或使用混合色 */
 }
+
+/* 排序圖示 */
 .sort-icon {
     display: inline-block;
     width: 0;
@@ -147,100 +194,24 @@ h1, h3 {
 .asc .sort-icon {
     border-left: 5px solid transparent;
     border-right: 5px solid transparent;
-    border-bottom: 5px solid #333;
+    border-bottom: 5px solid var(--sort-icon-color);
 }
 .desc .sort-icon {
     border-left: 5px solid transparent;
     border-right: 5px solid transparent;
-    border-top: 5px solid #333;
+    border-top: 5px solid var(--sort-icon-color);
 }
 
 /* 意見回饋區 */
 .feedback-section {
     margin-top: 30px;
     padding: 20px;
-    border-top: 2px dashed #ccc;
+    border-top: 2px dashed var(--feedback-border);
     text-align: center;
     transition: border-color 0.3s;
 }
 .feedback-button {
     display: inline-block;
-    background-color: #f4a261;
+    background-color: #f4a261; /* 固定橘色 */
     color: white;
-    padding: 10px 20px;
-    text-decoration: none;
-    border-radius: 5px;
-    font-weight: bold;
-    margin-top: 10px;
-}
-.feedback-button:hover {
-    background-color: #e76f51;
-}
-
-/* 頁腳 */
-footer {
-    text-align: center;
-    padding: 10px;
-    color: #777;
-    font-size: 0.9em;
-    transition: color 0.3s;
-}
-
-/* --- 夜間模式樣式 (Dark Mode) --- */
-body.dark-mode {
-    background-color: #121212; /* 深色背景 */
-    color: #e0e0e0; /* 淺色文字 */
-}
-
-body.dark-mode .container {
-    background: #1e1e1e; /* 容器背景 */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-}
-
-body.dark-mode h1,
-body.dark-mode h3 {
-    color: #7abaff; /* 藍色亮色化 */
-}
-
-body.dark-mode #searchInput {
-    background-color: #333;
-    border-color: #444;
-    color: #e0e0e0;
-}
-
-body.dark-mode .filter-section {
-    background-color: #252525;
-    border-color: #444;
-}
-
-body.dark-mode #gachaTable th,
-body.dark-mode #gachaTable td {
-    border-color: #333;
-}
-
-body.dark-mode #gachaTable th {
-    background-color: #3a3a3a;
-    color: #e0e0e0;
-}
-
-body.dark-mode #gachaTable tr:nth-child(even) {
-    background-color: #2e2e2e;
-}
-
-body.dark-mode #gachaTable tr:hover {
-    background-color: #444;
-}
-
-body.dark-mode .asc .sort-icon,
-body.dark-mode .desc .sort-icon {
-    border-bottom-color: #e0e0e0 !important;
-    border-top-color: #e0e0e0 !important;
-}
-
-body.dark-mode .feedback-section {
-    border-top-color: #444;
-}
-
-body.dark-mode footer {
-    color: #999;
-}
+    padding: 10px
