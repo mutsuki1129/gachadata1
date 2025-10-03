@@ -1,39 +1,63 @@
+/* --- 共通樣式 --- */
 body {
     font-family: Arial, sans-serif;
-    background-color: #f4f4f9;
+    background-color: #f4f4f9; /* 日間：淺灰 */
     color: #333;
     margin: 0;
     padding: 0;
+    transition: background-color 0.3s, color 0.3s; /* 讓切換更平滑 */
 }
 
 .container {
     width: 90%;
     max-width: 1200px;
     margin: 20px auto;
-    background: #fff;
+    background: #fff; /* 日間：白色背景 */
     padding: 20px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
+    transition: background 0.3s;
 }
 
 header {
     background-color: #306090; /* 藍色系 */
     color: white; 
-    padding: 15px 0;
+    padding: 15px 20px; /* 增加左右 padding */
     text-align: center;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    position: relative; /* 為了定位切換按鈕 */
 }
 
 header h1 {
-    color: white; /* 修正標題在藍色背景上不可見的問題 */
+    color: white; 
     margin: 0; 
+}
+
+/* --- 日間/夜間按鈕樣式 --- */
+.theme-button {
+    position: absolute;
+    top: 50%;
+    right: 20px; /* 右側邊距 */
+    transform: translateY(-50%);
+    background-color: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: 1px solid white;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 14px;
+    transition: background-color 0.3s;
+}
+.theme-button:hover {
+    background-color: rgba(255, 255, 255, 0.3);
 }
 
 h1, h3 {
     color: #306090;
+    transition: color 0.3s;
 }
 
-/* 搜尋區 */
+/* --- 篩選區與按鈕樣式 (保持不變) --- */
 .search-section {
     margin-bottom: 20px;
 }
@@ -43,26 +67,26 @@ h1, h3 {
     font-size: 16px;
     border: 1px solid #ccc;
     border-radius: 4px;
+    transition: background-color 0.3s, border-color 0.3s, color 0.3s;
 }
-
-/* 篩選區 */
 .filter-section {
     padding: 15px;
     border: 1px solid #ddd;
     border-radius: 4px;
     margin-bottom: 20px;
     background-color: #f9f9f9;
+    transition: background-color 0.3s, border-color 0.3s;
 }
 
 /* 兩個按鈕的排版 */
 .filter-buttons {
     margin-top: 15px;
-    display: flex; /* 讓按鈕並排 */
-    gap: 10px;    /* 按鈕間距 */
+    display: flex; 
+    gap: 10px;    
 }
 .filter-buttons button {
-    flex-grow: 1; /* 讓按鈕平均分配空間 */
-    background-color: #306090; /* 統一使用藍色 */
+    flex-grow: 1; 
+    background-color: #306090; 
     color: white;
     padding: 8px 15px;
     border: none;
@@ -70,7 +94,7 @@ h1, h3 {
     cursor: pointer;
 }
 .filter-buttons button:hover {
-    background-color: #1e4566; /* hover 顏色略深 */
+    background-color: #1e4566; 
 }
 /* 結束兩個按鈕的排版 */
 
@@ -86,7 +110,7 @@ h1, h3 {
 }
 
 
-/* 表格區 */
+/* --- 表格區樣式 (保持不變) --- */
 .table-container {
     overflow-x: auto;
 }
@@ -99,11 +123,13 @@ h1, h3 {
     border: 1px solid #ddd;
     padding: 12px 8px;
     text-align: left;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
 }
 #gachaTable th {
     background-color: #e2eaf4;
     cursor: pointer;
     position: relative;
+    transition: background-color 0.3s;
 }
 #gachaTable tr:nth-child(even) {
     background-color: #f2f2f2;
@@ -135,6 +161,7 @@ h1, h3 {
     padding: 20px;
     border-top: 2px dashed #ccc;
     text-align: center;
+    transition: border-color 0.3s;
 }
 .feedback-button {
     display: inline-block;
@@ -156,4 +183,64 @@ footer {
     padding: 10px;
     color: #777;
     font-size: 0.9em;
+    transition: color 0.3s;
+}
+
+/* --- 夜間模式樣式 (Dark Mode) --- */
+body.dark-mode {
+    background-color: #121212; /* 深色背景 */
+    color: #e0e0e0; /* 淺色文字 */
+}
+
+body.dark-mode .container {
+    background: #1e1e1e; /* 容器背景 */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+body.dark-mode h1,
+body.dark-mode h3 {
+    color: #7abaff; /* 藍色亮色化 */
+}
+
+body.dark-mode #searchInput {
+    background-color: #333;
+    border-color: #444;
+    color: #e0e0e0;
+}
+
+body.dark-mode .filter-section {
+    background-color: #252525;
+    border-color: #444;
+}
+
+body.dark-mode #gachaTable th,
+body.dark-mode #gachaTable td {
+    border-color: #333;
+}
+
+body.dark-mode #gachaTable th {
+    background-color: #3a3a3a;
+    color: #e0e0e0;
+}
+
+body.dark-mode #gachaTable tr:nth-child(even) {
+    background-color: #2e2e2e;
+}
+
+body.dark-mode #gachaTable tr:hover {
+    background-color: #444;
+}
+
+body.dark-mode .asc .sort-icon,
+body.dark-mode .desc .sort-icon {
+    border-bottom-color: #e0e0e0 !important;
+    border-top-color: #e0e0e0 !important;
+}
+
+body.dark-mode .feedback-section {
+    border-top-color: #444;
+}
+
+body.dark-mode footer {
+    color: #999;
 }
