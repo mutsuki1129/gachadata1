@@ -1,59 +1,60 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ChronoStory轉蛋機查詢</title>
-    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChronoStory轉蛋機查詢</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <header>
-        <h1>ChronoStory轉蛋機查詢</h1> 
-    </header>
+    <header>
+        <h1>ChronoStory轉蛋機查詢</h1> 
+        <button id="themeToggle" class="theme-button">切換至夜間模式</button>
+    </header>
 
-    <div class="container">
-        <div class="search-section">
-            <input type="text" id="searchInput" placeholder="輸入物品名稱 (支援中/英文)...">
-        </div>
+    <div class="container">
+        <div class="search-section">
+            <input type="text" id="searchInput" placeholder="輸入物品名稱 (支援中/英文)...">
+        </div>
 
-        <div class="filter-section">
-            <h3>轉蛋機地點篩選：</h3>
-            <div id="locationCheckboxes" class="checkbox-group">
-                                </div>
+        <div class="filter-section">
+            <h3>轉蛋機地點篩選：</h3>
+            <div id="locationCheckboxes" class="checkbox-group">
+                </div>
             
             <div class="filter-buttons">
-                <button onclick="setAllCheckboxes(true)">全部</button>
-                <button onclick="setAllCheckboxes(false)">清除</button>
+                <button onclick="setAllCheckboxes(true)">全部</button>
+                <button onclick="setAllCheckboxes(false)">清除</button>
             </div>
-        </div>
+        </div>
 
-        <div class="table-container">
-            <p id="resultCount">載入中...</p>
-            <table id="gachaTable">
-                <thead>
-                    <tr>
-                        <th data-sort="name">物品名稱 (中/英) <span class="sort-icon"></span></th>
-                        <th data-sort="gachapon">轉蛋機地點 <span class="sort-icon"></span></th>
-                        <th data-sort="percent">機率 <span class="sort-icon"></span></th>
-                    </tr>
-                </thead>
-                <tbody id="tableBody">
-                                        </tbody>
-            </table>
-        </div>
-        
-        <div class="feedback-section">
-            <h2>意見回饋</h2>
-            <p>有甚麼需要改的盡管跟我說QWQ：</p>
-            <a href="https://docs.google.com/forms/d/e/1FAIpQLSeFrYN9Lsmlp-a3sHunCBSGs_iPuWTshA_LwCC29cqmsXDtRA/viewform" target="_blank" class="feedback-button">前往填寫意見表單</a>
-        </div>
-    </div>
+        <div class="table-container">
+            <p id="resultCount">載入中...</p>
+            <table id="gachaTable">
+                <thead>
+                    <tr>
+                        <th data-sort="name">物品名稱 (中/英) <span class="sort-icon"></span></th>
+                        <th data-sort="gachapon">轉蛋機地點 <span class="sort-icon"></span></th>
+                        <th data-sort="percent">機率 <span class="sort-icon"></span></th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody">
+                    </tbody>
+            </table>
+        </div>
+        
+        <div class="feedback-section">
+            <h2>意見回饋</h2>
+            <p>有甚麼需要改的盡管跟我說QWQ：</p>
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSeFrYN9Lsmlp-a3sHunCBSGs_iPuWTshA_LwCC29cqmsXDtRA/viewform" target="_blank" class="feedback-button">前往填寫意見表單</a>
+        </div>
+    </div>
 
-    <footer>
-        <p>&copy; 2025 Gacha Drop Checker | 資料來源: gachadata.csv</p>
-    </footer>
+    <footer>
+        <p>&copy; 2025 Gacha Drop Checker | 資料來源: gachadata.csv</p>
+    </footer>
 
-    <script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
