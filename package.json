@@ -5,7 +5,7 @@
   "source": "index.html",
   "scripts": {
     "start": "parcel",
-    "build": "parcel build --public-url ./"  <-- 關鍵修正在這裡！
+    "build": "parcel build --public-url ./" 
   },
   "devDependencies": {
     "parcel": "^2.12.0"
