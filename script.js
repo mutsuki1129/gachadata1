@@ -3,7 +3,6 @@ let allData = []; // 儲存所有資料
 let uniqueLocations = new Set(); // 儲存所有唯一的轉蛋機地點
 let currentSortColumn = 'name';
 let isAscending = true;
-let isAllSelected = true; // 新增狀態來追蹤全選/不選的狀態
 
 // --- CSV 載入與初始化 ---
 
@@ -39,7 +38,6 @@ function loadCSV() {
                 // 使用 Tab 分隔符號
                 const values = lines[i].split('\t');
                 
-                // 處理可能因換行符號不同導致的資料長度不符問題
                 if (values.length >= headers.length) {
                     const row = {
                         name: values[0].trim(),
@@ -80,7 +78,7 @@ function setupCheckboxes() {
         checkbox.name = 'location';
         checkbox.value = location;
         checkbox.checked = true; // 預設全部勾選
-        // === 關鍵修正：點擊時即時篩選 ===
+        // 點擊時即時篩選
         checkbox.addEventListener('change', runAllFiltersAndSort);
 
         const label = document.createElement('label');
@@ -97,22 +95,19 @@ function getSelectedLocations() {
     return Array.from(checkboxes).map(cb => cb.value);
 }
 
-// === 新增：全選 / 全部不選功能 ===
-function toggleAllCheckboxes() {
+// === 修正：設定全選或全部不選功能 (由 全部/清除 按鈕調用) ===
+function setAllCheckboxes(shouldCheck) {
     const checkboxes = document.querySelectorAll('#locationCheckboxes input[name="location"]');
     
-    // 根據當前狀態切換，如果當前是全選，則下一次是全部不選
-    isAllSelected = !isAllSelected; 
-
     checkboxes.forEach(cb => {
-        cb.checked = isAllSelected;
+        cb.checked = shouldCheck;
     });
 
     // 執行篩選
     runAllFiltersAndSort();
 }
 
-// --- 搜尋與篩選主邏輯 (取代原 applyFilters) ---
+// --- 搜尋與篩選主邏輯 ---
 
 function runAllFiltersAndSort() {
     // 獲取使用者輸入和選擇
@@ -193,7 +188,7 @@ function displayTable(data) {
 
 // --- 事件監聽器 ---
 
-// 搜尋欄位輸入時即時篩選 (改為呼叫新的核心函式)
+// 搜尋欄位輸入時即時篩選
 document.getElementById('searchInput').addEventListener('keyup', runAllFiltersAndSort);
 
 // 表格標頭點擊排序
