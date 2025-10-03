@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>楓之谷轉蛋機掉落查詢</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <h1>楓之谷轉蛋機掉落查詢</h1>
+    </header>
+
+    <div class="container">
+        <div class="search-section">
+            <input type="text" id="searchInput" placeholder="輸入物品名稱 (支援中/英文)...">
+        </div>
+
+        <div class="filter-section">
+            <h3>轉蛋機地點篩選：</h3>
+            <div id="locationCheckboxes" class="checkbox-group">
+                </div>
+            <button onclick="applyFilters()">套用篩選</button>
+        </div>
+
+        <div class="table-container">
+            <p id="resultCount">載入中...</p>
+            <table id="gachaTable">
+                <thead>
+                    <tr>
+                        <th data-sort="name">物品名稱 (中/英) <span class="sort-icon"></span></th>
+                        <th data-sort="gachapon">轉蛋機地點 <span class="sort-icon"></span></th>
+                        <th data-sort="percent">掉落機率 <span class="sort-icon"></span></th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody">
+                    </tbody>
+            </table>
+        </div>
+        
+        <div class="feedback-section">
+            <h2>意見回饋</h2>
+            <p>如果您發現任何錯誤或有任何建議，請填寫我們的意見表單：</p>
+            <a href="YOUR_GOOGLE_FORM_LINK" target="_blank" class="feedback-button">前往填寫意見表單</a>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Gacha Drop Checker | 資料來源: gachadata.csv</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
