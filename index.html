@@ -19,11 +19,13 @@
 
         <div class="filter-section">
             <h3>轉蛋機地點篩選：</h3>
-            
-                        <button id="toggleAllBtn" onclick="toggleAllCheckboxes()">全部/清除</button>
-            
             <div id="locationCheckboxes" class="checkbox-group">
                                 </div>
+            
+            <div class="filter-buttons">
+                <button onclick="setAllCheckboxes(true)">全部</button>
+                <button onclick="setAllCheckboxes(false)">清除</button>
+            </div>
         </div>
 
         <div class="table-container">
