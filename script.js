@@ -4,6 +4,46 @@ let uniqueLocations = new Set(); // 儲存所有唯一的轉蛋機地點
 let currentSortColumn = 'name';
 let isAscending = true;
 
+// --- 日間/夜間模式邏輯 ---
+
+function applyTheme(isDark) {
+    const body = document.body;
+    const toggleButton = document.getElementById('themeToggle');
+    
+    if (isDark) {
+        body.classList.add('dark-mode');
+        // 將偏好儲存在本地
+        localStorage.setItem('theme', 'dark');
+        toggleButton.textContent = '切換至日間模式';
+    } else {
+        body.classList.remove('dark-mode');
+        localStorage.setItem('theme', 'light');
+        toggleButton.textContent = '切換至夜間模式';
+    }
+}
+
+function toggleTheme() {
+    // 檢查目前是否有 dark-mode 類別
+    const isDark = document.body.classList.contains('dark-mode');
+    // 切換狀態
+    applyTheme(!isDark);
+}
+
+function initializeTheme() {
+    const savedTheme = localStorage.getItem('theme');
+    
+    // 如果有儲存的偏好，或瀏覽器偏好是深色，則啟用深色模式
+    if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        applyTheme(true);
+    } else {
+        applyTheme(false);
+    }
+    
+    // 為按鈕添加點擊事件監聽
+    document.getElementById('themeToggle').addEventListener('click', toggleTheme);
+}
+
+
 // --- CSV 載入與初始化 ---
 
 // 載入 CSV 檔案 (使用 TextDecoder 強制 UTF-8 解碼來解決亂碼問題)
@@ -95,7 +135,7 @@ function getSelectedLocations() {
     return Array.from(checkboxes).map(cb => cb.value);
 }
 
-// === 修正：設定全選或全部不選功能 (由 全部/清除 按鈕調用) ===
+// 設定全選或全部不選功能 (由 全部/清除 按鈕調用)
 function setAllCheckboxes(shouldCheck) {
     const checkboxes = document.querySelectorAll('#locationCheckboxes input[name="location"]');
     
@@ -210,4 +250,7 @@ document.querySelectorAll('#gachaTable th').forEach(header => {
 
 
 // 網頁載入完成後執行
-window.onload = loadCSV;
+window.onload = function() {
+    initializeTheme(); // 先初始化主題
+    loadCSV();         // 再載入資料
+};
